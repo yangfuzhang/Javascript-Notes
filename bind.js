@@ -18,7 +18,7 @@ Function.prototype.bind = function(context) {
 	}
 
     // 返回的函数prototype指向空函数，空函数prototype指向绑定函数
-	fNOP.prototype = this.prototype
+	fNOP.prototype = self.prototype
 	fBound.prototype = new fNOP()
 
     return fBound
