@@ -1,10 +1,10 @@
 // 防抖函数
 function debounce(func, wait, immediate) {
-	let timeout, result
+	let timeout
 
 	let debounced = function() {
 		let context = this
-		let args = arguments
+		let args = [].slice.call(arguments)
 
 		if(timeout) {
 			clearTimeout(timeout)
@@ -25,8 +25,6 @@ function debounce(func, wait, immediate) {
 				func.apply(context, args)
 			}, wait)
 		}
-
-		return result
 	}
 
 	debounced.cancel = function() {
