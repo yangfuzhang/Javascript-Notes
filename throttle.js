@@ -1,3 +1,4 @@
+// 节流函数
 const throttle = function(func, wait = 50) {
 	let previous = 0
 
