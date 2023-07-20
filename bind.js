@@ -14,12 +14,12 @@ Function.prototype.bind = function(context) {
 	var fBound = function() {
 		var bindArgs = [].slice.call(arguments)
 
-		return self.apply(this instanceof fNOP ? this: context, args.concat(bindArgs))
+		return self.apply(this instanceof fBound ? this: context, args.concat(bindArgs))
 	}
 
-    // 返回的函数prototype指向空函数，空函数prototype指向绑定函数
+  // 返回的函数prototype指向空函数，空函数prototype指向绑定函数
 	fNOP.prototype = self.prototype
 	fBound.prototype = new fNOP()
 
-    return fBound
+  return fBound
 }
