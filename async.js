@@ -3,28 +3,28 @@ function asyncToGen(genFunction) {
 		const gen = genFunction.apply(this, args)
 
 		return new Promise((resolve, reject) => {
-            function step(key, arg) {
-            	let genResult
+			function step(key, arg) {
+				let genResult
 
-            	try {
-            		genResult = gen[key](arg)
-            	} catch(err) {
-            		return reject(err)
-            	}
+				try {
+					genResult = gen[key](arg)
+				} catch(err) {
+					return reject(err)
+				}
 
-            	const { value, done } = genResult
+				const { value, done } = genResult
 
-            	if(done) {
-            		return resolve(value)
-            	}
+				if(done) {
+					return resolve(value)
+				}
 
-            	return Promise.resolve(value).then(
-  					    (val) => { step('next', val) },
-  					    (err) => { step('throw', err) }
-            	)
-            }
+				return Promise.resolve(value).then(
+					(val) => { step('next', val) },
+					(err) => { step('throw', err) }
+				)
+			}
 
-            step('next')
+			step('next')
 		})
 	}
 }

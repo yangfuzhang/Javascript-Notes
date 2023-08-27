@@ -5,25 +5,22 @@ function curry(fn, args) {
 	args = args || []
 
 	return function() {
-		let _args = args.slice(0)
+		let _args = Array.prototype.slice.call(args)
+		let _newArgs = _args.concat(Array.prototype.slice.call(arguments))
 
-		for(let i = 0; i < arguments.length; i++) {
-			_args.push(arguments[i])
-		}
-
-		if(_args.length < length) {
-			return curry.call(this, fn, _args)
+		if(_newArgs.length < length) {
+			return curry.call(this, fn, _newArgs)
 		} else {
-			return fn.apply(this, _args)
+			return fn.apply(this, _newArgs)
 		}
 	}
 }
 
 let fn = curry(function(a, b, c) {
-	console.log([a, b, c])
+	return a + b + c
 })
 
-fn("a", "b", "c")
-fn("a", "b")("c")
-fn("a")("b")("c") 
-fn("a")("b", "c")
+fn(1, 2, 3)
+fn(1, 2)(3)
+fn(1)(2)(3) 
+fn(1)(2, 3)

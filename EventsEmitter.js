@@ -1,16 +1,16 @@
-class Observer {
+class EventsEmitter {
 	constructor() {
-	    this.events = {}
+	  this.events = {}
 	}
 
 	subscribe(eventName, callback) {
 		let events = this.events
 
-        if(!events.hasOwnProperty(eventName)) {
-        	events[eventName] = []
-        }
+		if(!events.hasOwnProperty(eventName)) {
+			events[eventName] = []
+		}
 
-        events[eventName].push(callback)
+		events[eventName].push(callback)
 	}
 
 	unsubscribe(eventName, callback) {
@@ -32,26 +32,26 @@ class Observer {
 
 	publish(eventName) {
 		let events = this.events
-        let args = [].slice.call(arguments, 1)
-        let index = 0,
-            length = 0
+		let args = [].slice.call(arguments, 1)
+		let index = 0,
+				length = 0
 
-        if(events.hasOwnProperty(eventName)) {
-        	length = events[eventName].length
+		if(events.hasOwnProperty(eventName)) {
+			length = events[eventName].length
 
-        	for(; index < length; index++) {
-        		events[eventName][index].apply(this, args)
-        	}
-        }
+			for(; index < length; index++) {
+				events[eventName][index].apply(this, args)
+			}
+		}
 	}
 }
 
-let observer = new Observer()
+let eventEmitter = new EventsEmitter()
 let cb = function(args) {
 	console.log(args)
 }
 
-observer.subscribe('click', cb)
-observer.publish('click', 'Hello world!')
-observer.unsubscribe('click', cb)
-observer.publish('click', 'Hello world!')
+eventEmitter.subscribe('click', cb)
+eventEmitter.publish('click', 'Hello world!')
+eventEmitter.unsubscribe('click', cb)
+eventEmitter.publish('click', 'Hello world!')

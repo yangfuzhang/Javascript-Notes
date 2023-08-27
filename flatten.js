@@ -24,20 +24,20 @@ function flatten(arr) {
 	}, [])
 }
 
-let arr = [1, [2, [3, 5]], 6, [9, 7]]
+let arr1 = [1, [2, [3, 5]], 6, [9, 7]]
 
-flatten(arr)
+flatten(arr1)
 
 
 //ES6 API
 function flatten(arr) {
 	while (arr.some(item => Array.isArray(item))) {
-        arr = [].concat(...arr)
-    }
+		arr = [].concat(...arr)
+	}
 
-    return arr
+	return arr
 }
 
-let arr = [1, [2, [3, 5]], 6, [9, 7]]
+let arr2 = [1, [2, [3, 5]], 6, [9, 7]]
 
-flatten(arr)
+flatten(arr2)
